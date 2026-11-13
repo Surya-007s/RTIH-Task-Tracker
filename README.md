@@ -94,7 +94,7 @@ These are limited browser/JavaScript checks using isolated HTML fixtures, not a 
 | Close Edit, then open Create; verify blank fields, Pending status, and cleared edit URL | Passed | Browser fixture; no PHP/database involved |
 | Success toast disappears after five seconds while hovered | Passed | Browser fixture; no PHP/database involved |
 
-No registration, login, task CRUD, SQL, authorization, or real PHP/MySQL end-to-end test was run here. Those remain pending and are not reported as passed.
+These fixture checks were run during development using isolated HTML fixtures. They are superseded by the application-level verification above: all 13 cases were executed against a live PHP 8.2 + MariaDB 10.11 stack on 13 November 2026 and passed.
 
 ## Backup and restore
 
