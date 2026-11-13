@@ -4,35 +4,154 @@ A beginner-readable task tracker built with core PHP, MySQL/MariaDB, PDO, HTML, 
 
 ## Requirements
 
-- PHP 8.1 or later with `pdo_mysql` and `mbstring` enabled
-- MySQL 8+ or MariaDB 10.4+
-- A local PHP web server (PHP's built-in server is enough for development)
-- A modern browser
+| Tool | Minimum version | Download link |
+|---|---|---|
+| PHP | 8.1+ (with `pdo_mysql` and `mbstring` extensions enabled) | [php.net/downloads](https://www.php.net/downloads) |
+| MySQL | 8.0+ | [mysql.com/downloads](https://www.mysql.com/downloads/) |
+| *or* MariaDB | 10.4+ | [mariadb.org/download](https://mariadb.org/download/) |
+| Git | any recent version | [git-scm.com/downloads](https://git-scm.com/downloads) |
+| Web browser | any modern browser (Chrome, Firefox, Edge, Safari) | — |
+
+> **New to PHP? Use [XAMPP](https://www.apachefriends.org/) instead.** XAMPP is a free installer that bundles PHP, MariaDB, and phpMyAdmin in one download, so Steps 1 and 2 of the installation become a single install. It works the same on Windows, macOS, and Linux.
 
 This workspace did not have PHP or a MySQL/MariaDB server available during initial development. The application has since been run end to end against PHP 8.2 and MariaDB 10.11 in local Docker containers, and the manual test plan in `MANUAL_TESTS.md` was executed on 13 November 2026 with all cases passing. The screenshots with the `-live-` suffix in `screenshots/` are captures from the running application.
 
 The interface uses a full-width task area, a date badge, status-distribution bars, responsive summary cards, clearer task actions, stronger keyboard focus indicators, and subtle card and modal transitions. Reduced-motion preferences are respected.
 
-## Local setup
+## Step-by-step installation (from scratch)
 
-1. Install PHP and MySQL/MariaDB, and make sure PHP extensions `pdo_mysql` and `mbstring` are enabled.
-2. Create the database schema by importing `database.sql`. For example, from a terminal with the MySQL client available:
+Follow these six steps in order. Each step explains what it does and why, so you can set the project up even if you have never run a PHP application before.
 
+### Step 1 — Get the code
+
+Clone the repository to your computer (or download it as a ZIP from the green **Code** button and extract it):
+
+```sh
+git clone https://github.com/Surya-007s/RTIH-Task-Tracker.git
+cd RTIH-Task-Tracker
+```
+
+Everything after this step happens inside this project folder.
+
+### Step 2 — Install and start PHP + MySQL/MariaDB
+
+**Option A — XAMPP (easiest):**
+
+1. Download and install XAMPP from [apachefriends.org](https://www.apachefriends.org/) with the default options.
+2. Open the **XAMPP Control Panel** and click **Start** next to both **Apache** and **MySQL**. Both should turn green.
+
+**Option B — manual install:**
+
+1. Install PHP from [php.net](https://www.php.net/downloads) and MySQL from [mysql.com](https://www.mysql.com/downloads/) (or MariaDB from [mariadb.org](https://mariadb.org/download/)).
+2. Open your `php.ini` file and make sure these two lines are **uncommented** (no `;` at the start):
+   ```ini
+   extension=pdo_mysql
+   extension=mbstring
+   ```
+3. Start the MySQL/MariaDB service (on Windows it can run as a service automatically; on Linux: `sudo systemctl start mysql`).
+
+**Check that everything is installed** — open a new terminal and run:
+
+```sh
+php -v
+```
+You should see PHP 8.1 or newer. If you get *"php is not recognized"*, see the Troubleshooting section below.
+
+### Step 3 — Create the database
+
+The file `database.sql` creates the database (`rtih_task_tracker`) and its tables (`users`, `tasks`) automatically — you do not need to create anything by hand.
+
+**Option A — phpMyAdmin (comes with XAMPP):**
+
+1. Open [http://localhost/phpmyadmin](http://localhost/phpmyadmin) in your browser.
+2. Click **Import** in the top menu.
+3. Click **Choose file**, select `database.sql` from the project folder, then click **Go**.
+4. You should see the database `rtih_task_tracker` appear on the left, with tables `users` and `tasks`.
+
+**Option B — command line:**
+
+From inside the project folder, run:
+
+```sh
+mysql -u root -p < database.sql
+```
+
+Enter your MySQL root password when asked (XAMPP's default is an empty password — just press Enter).
+
+**Optional — demo data:** the project also ships a `sample_data.sql` file with a ready-made demo account and example tasks. Import it *after* `database.sql` if you want to try the app without creating anything yourself:
+
+```sh
+mysql -u root -p rtih_task_tracker < sample_data.sql
+```
+
+### Step 4 — Configure the database connection
+
+The app needs to know how to connect to your database.
+
+1. Copy the example config to the real config file:
+
+   **Windows (Command Prompt / PowerShell):**
    ```sh
-   mysql -u root -p < database.sql
+   copy config\database.example.php config\database.php
+   ```
+   **macOS / Linux:**
+   ```sh
+   cp config/database.example.php config/database.php
    ```
 
-3. Copy `config/database.example.php` to `config/database.php`. Set the local host, port, database name, username, and password. `config/database.php` is excluded from Git.
-4. From the project folder, start PHP's development server:
+2. Open `config/database.php` in any text editor and set the values for **your** setup:
 
-   ```sh
-   php -S 127.0.0.1:8000
+   ```php
+   return [
+       'host'     => '127.0.0.1',   // XAMPP default: leave as is
+       'port'     => '3306',        // MySQL/MariaDB default port
+       'database' => 'rtih_task_tracker',
+       'username' => 'root',        // XAMPP default: root
+       'password' => '',            // XAMPP default: empty. Use your own password otherwise
+       'charset'  => 'utf8mb4',
+   ];
    ```
 
-5. Open `http://127.0.0.1:8000/register.php` and register a demo account with your own local test email and password. There is no preloaded account, and no shared or real credential is included in this submission.
-6. Sign out and back in through `login.php` to verify authentication.
+   `config/database.php` is excluded from Git (via `.gitignore`), so your local password is never uploaded.
 
-The app sends clear setup/connection errors to the browser and logs database details to the PHP error log. It does not display SQL exceptions to users.
+### Step 5 — Start the application
+
+From inside the project folder, start PHP's built-in development server:
+
+```sh
+php -S 127.0.0.1:8000
+```
+
+You should see something like `PHP 8.x Development Server started at http://127.0.0.1:8000`. **Keep this terminal window open** — closing it stops the app.
+
+**XAMPP-only alternative:** if you used XAMPP, you can instead copy the project folder into `C:\xampp\htdocs\` (Windows) and open `http://localhost/RTIH-Task-Tracker/register.php` — no terminal needed.
+
+### Step 6 — Open the app and create your account
+
+1. Open [http://127.0.0.1:8000/register.php](http://127.0.0.1:8000/register.php) in your browser.
+2. Register a demo account with your own local test email and a password of **at least 8 characters**. There is no preloaded account and no shared or real credential in this submission.
+3. After registering, the dashboard opens — create your first task!
+4. Sign out and sign back in through [login.php](http://127.0.0.1:8000/login.php) to verify authentication works.
+
+If you imported `sample_data.sql`, you can also sign in with the demo account:
+
+- Email: `test.one@rtih.local`
+- Password: `TestPass!123`
+
+(This is a local demo login created for verification and the delivered screenshots; it is not a real credential.)
+
+That's it — the app is running. The app sends clear setup/connection errors to the browser and logs database details to the PHP error log. It does not display SQL exceptions to users.
+
+## Troubleshooting
+
+| Problem | Likely cause | Fix |
+|---|---|---|
+| `php is not recognized` (Windows) | PHP is not in the system PATH | Reinstall PHP and tick "Add to PATH", or use XAMPP and run commands from the XAMPP Shell |
+| `Access denied for user 'root'@'localhost'` | Wrong password in `config/database.php` | Set the correct MySQL password (XAMPP default is empty) |
+| `Unknown database 'rtih_task_tracker'` | `database.sql` was not imported | Repeat Step 3 |
+| `Connection refused` / MySQL errors | MySQL service is not running | Open the XAMPP Control Panel and Start MySQL (or start the service manually) |
+| Blank page / missing driver error | `pdo_mysql` or `mbstring` extension is disabled | Uncomment the two extension lines in `php.ini` and restart the server (Step 2) |
+| Port 8000 already in use | Another app is using the port | Run on another port: `php -S 127.0.0.1:8080` and use that URL instead |
 
 ## Completed levels
 
