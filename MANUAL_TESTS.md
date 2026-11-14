@@ -21,7 +21,7 @@ live screenshots.**
 | 10 | Use second account to guess first account's task ID | No data exposure or modification | Passed — edit URL shows nothing; delete returns "could not be found"; owner's task intact |
 | 11 | Use HTML/script in a title | Escaped text only; no script runs | Passed — rendered as `&lt;script&gt;` text; no raw tag in HTML |
 | 12 | Alter/remove CSRF token on a write request | HTTP 400, no mutation | Passed — missing token: 400; tampered token: 400; task count unchanged |
-| 13 | Use dashboard at mobile viewport | No horizontal overflow; controls remain usable | Passed — `scrollWidth` = `clientWidth` = 390 px measured; see `screenshots/dashboard-live-mobile.png` |
+| 13 | Use dashboard at mobile viewport | No horizontal overflow; controls remain usable | Passed — `scrollWidth` = `clientWidth` = 390 px measured; mobile-width capture not included in `screenshots/` (desktop captures only) |
 
 Details of the automated run (scripts kept outside the submission in a local scratch folder):
 requests-driven session flows for cases 1–12, plus direct SQL verification against

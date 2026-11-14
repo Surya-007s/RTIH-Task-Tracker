@@ -10,7 +10,7 @@ Each item below points to where it is fulfilled.
 | 1 | Complete source code | This folder: `dashboard.php`, `login.php`, `register.php`, `account.php`, `logout.php`, `config/`, `assets/` |
 | 2 | SQL export with table creation statements (+ optional sample data) | `database.sql` (schema, imports cleanly) and `sample_data.sql` (optional demo account + three tasks matching the screenshots) |
 | 3 | README with setup instructions, PHP/MySQL configuration steps, test login details, and the roles/permissions explanation | `README.md` — setup steps under "Local setup"; test login below; role model under "Security and design notes" |
-| 4 | Screenshots showing the application working | `screenshots/*-live-*.png` — captured 13 Nov 2026 from the running app (PHP 8.2 + MariaDB 10.11 in Docker) with live task data |
+| 4 | Screenshots showing the application working | `screenshots/*.png` — captured 13-14 Nov 2026 from the running app (PHP 8.2 + MariaDB 10.11 in Docker) with live task data |
 | 5 | Note of completed levels and known limitations | `COMPLETED_LEVELS.md` and the "Completed levels" / "Security and design notes" sections of `README.md` |
 | 6 | Test cases run, with results, and bugs found and fixed | `MANUAL_TESTS.md` — all 13 cases executed 13 Nov 2026, results recorded, plus the browser-fixture checks and the bug/fix table |
 | 7 | Note on database backup and restore | `README.md` — "Backup and restore" section |

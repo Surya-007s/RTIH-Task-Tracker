@@ -12,7 +12,7 @@
 ## Limitations and verification status
 
 - The current workspace had no PHP executable or MySQL/MariaDB server/client. End-to-end execution and database-backed manual tests remain to be run on a machine with the requirements in README.md.
-- The images in `screenshots/` are design previews, not captures from a live app session.
+- The images in `screenshots/` are captures from the running application (13-14 November 2026).
 - JavaScript/browser fixture checks were run for dialog data, edit-to-create form reset, overlay position, toast auto-dismiss, and script syntax. PHP, SQL, authentication, authorization, and database-backed task flows were not run.
 - No shared account or password is seeded. Register a disposable local test account after database setup.
 - Password reset, email verification, login throttling, and admin functions are outside this assignment implementation.

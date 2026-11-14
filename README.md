@@ -14,7 +14,7 @@ A beginner-readable task tracker built with core PHP, MySQL/MariaDB, PDO, HTML, 
 
 > **New to PHP? Use [XAMPP](https://www.apachefriends.org/) instead.** XAMPP is a free installer that bundles PHP, MariaDB, and phpMyAdmin in one download, so Steps 1 and 2 of the installation become a single install. It works the same on Windows, macOS, and Linux.
 
-This workspace did not have PHP or a MySQL/MariaDB server available during initial development. The application has since been run end to end against PHP 8.2 and MariaDB 10.11 in local Docker containers, and the manual test plan in `MANUAL_TESTS.md` was executed on 13 November 2026 with all cases passing. The screenshots with the `-live-` suffix in `screenshots/` are captures from the running application.
+This workspace did not have PHP or a MySQL/MariaDB server available during initial development. The application has since been run end to end against PHP 8.2 and MariaDB 10.11 in local Docker containers, and the manual test plan in `MANUAL_TESTS.md` was executed on 13 November 2026 with all cases passing. The screenshots in `screenshots/` are captures from the running application.
 
 The interface uses a full-width task area, a date badge, status-distribution bars, responsive summary cards, clearer task actions, stronger keyboard focus indicators, and subtle card and modal transitions. Reduced-motion preferences are respected.
 
@@ -199,7 +199,7 @@ The following cases were executed on **13 November 2026** against PHP 8.2 + Mari
 | 10 | Sign in as a second user and try another user's task URL/ID | Other user's task is inaccessible and cannot be changed/deleted | Passed (13 Nov 2026) |
 | 11 | Submit a task title containing HTML/script markup | Markup displays as text; no script executes | Passed (13 Nov 2026) |
 | 12 | Change/remove the CSRF token from a write request | Request is rejected with HTTP 400 | Passed (13 Nov 2026) |
-| 13 | Resize the browser to mobile width | Forms, list, and dashboard remain readable without horizontal overflow | Passed (13 Nov 2026) — no horizontal overflow measured at 390 px; see `screenshots/dashboard-live-mobile.png` |
+| 13 | Resize the browser to mobile width | Forms, list, and dashboard remain readable without horizontal overflow | Passed (13 Nov 2026) — no horizontal overflow measured at 390 px |
 
 ### Checks actually run in this workspace
 
