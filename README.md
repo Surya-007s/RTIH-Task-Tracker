@@ -2,6 +2,28 @@
 
 A beginner-readable task tracker built with core PHP, MySQL/MariaDB, PDO, HTML, CSS, and JavaScript. The project implements the three assignment levels and keeps each task private to its owner.
 
+## Screenshots
+
+All captures below are from the running application (PHP 8.2 + MariaDB 10.11) with live task data.
+
+![User dashboard with task summary cards, status distribution bars, and the task list](screenshots/user-dashboard.png)
+
+| Sign in | Register |
+|---|---|
+| ![Sign-in page](screenshots/sign-in-page.png) | ![Account creation page](screenshots/account-creation-page.png) |
+
+| Task list | Create a task |
+|---|---|
+| ![Task list with search and status filter](screenshots/task-list.png) | ![Create-task dialog](screenshots/task-creation.png) |
+
+| Edit a task | View task details |
+|---|---|
+| ![Edit-task dialog](screenshots/task-edit.png) | ![Read-only task details dialog](screenshots/task-view.png) |
+
+| Delete confirmation | Account settings |
+|---|---|
+| ![Delete confirmation dialog](screenshots/task-delete.png) | ![Account settings — change email or password](screenshots/user-settings.png) |
+
 ## Requirements
 
 | Tool | Minimum version | Download link |
